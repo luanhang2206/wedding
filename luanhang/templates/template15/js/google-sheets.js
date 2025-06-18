@@ -2,6 +2,7 @@
 const SPREADSHEET_ID = '18_R5jP6jDZk8-KtysFZ5O_yH_L6zj00fqonrNdipMB0'; // Replace with your spreadsheet ID
 const SHEET_NAME = 'Wishes'; // Name of the sheet tab
 const API_KEY = 'AIzaSyDjXiMZ-DXe6RNbxFblKY2TzoS2F3fuuMs'; // Replace with your API key
+const APP_URL = 'https://script.google.com/macros/s/AKfycbx8SHR9Ei2-1kg_GT9NaJkKGoQwzSESjJ0eWArPWfe-lxf8tAc65hPHmQO0IHQz8CBc/exec'
 
 // Function to load wishes from Google Sheets
 async function loadWishesFromSheet() {
@@ -27,28 +28,26 @@ async function loadWishesFromSheet() {
 // Function to save a new wish to Google Sheets
 async function saveWishToSheet(name, content) {
     try {
-        const timestamp = new Date().toISOString();
-        const values = [[name, content, timestamp]];
-
-        const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}!A:C:append?valueInputOption=USER_ENTERED&key=${API_KEY}`, {
+        const response = await fetch(APP_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                values: values
-            })
+            body: JSON.stringify({ name, content }),
         });
 
+        const text = await response.text();
+
         if (response.ok) {
-            // Add the new wish to the display
-            addWishToDisplay(name, content);
-            return true;
+            console.log("✔ Wish saved:", text);
+            alert("Lưu lời chúc thành công!");
+        } else {
+            console.error("❌ Server error:", text);
+            alert("Gửi lời chúc thất bại!");
         }
-        return false;
     } catch (error) {
-        console.error('Error saving wish:', error);
-        return false;
+        console.error("❌ Network error:", error);
+        alert("Lỗi mạng khi gửi lời chúc!");
     }
 }
 

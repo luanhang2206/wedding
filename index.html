@@ -913,11 +913,8 @@
           <div class="col col-lg-6 col-md-6">
             <div class="contact-form">
               <form id="wish-form" class="form validate-rsvp-form row" method="post">
-                <div class="col col-sm-6">
+                <div class="col col-sm-12">
                   <input type="text" name="name" class="form-control" placeholder="Nhập họ tên*">
-                </div>
-                <div class="col col-sm-6">
-                  <input type="email" name="email" class="form-control" placeholder="Nhập email">
                 </div>
                 <div class="col col-sm-12">
                   <div class="textarea-emoji-picker">
@@ -1090,62 +1087,22 @@
                   <div id="error">Gửi lời chúc thất bại, vui lòng thử lại sau giây lát! </div>
                 </div>
               </form>
-              <script>
-                // Thay YOUR_GOOGLE_SCRIPT_URL bằng link Google Apps Script Web App của bạn
-                const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL';
-                const form = document.getElementById('wish-form');
-                const loader = document.getElementById('loader');
-                const successMsg = document.getElementById('success');
-                const errorMsg = document.getElementById('error');
-
-                form.addEventListener('submit', e => {
-                  e.preventDefault();
-                  loader.style.display = 'inline-block';
-                  successMsg.style.display = 'none';
-                  errorMsg.style.display = 'none';
-
-                  const formData = new FormData(form);
-
-                  fetch(scriptURL, { method: 'POST', body: formData })
-                    .then(response => {
-                      loader.style.display = 'none';
-                      if (response.ok) {
-                        successMsg.style.display = 'block';
-                        form.reset();
-                      } else {
-                        errorMsg.style.display = 'block';
-                      }
-                    })
-                    .catch(error => {
-                      loader.style.display = 'none';
-                      errorMsg.style.display = 'block';
-                    });
-                });
-              </script>
             </div>
           </div>
           <div class="col col-lg-6 col-md-6 ">
             <div class=" wish-box">
-              <div class="wish-box-item ">
-                <strong>Nhung hanaro hcm</strong>
-                <p>Chúc 2 vợ chồng e trăm năm hạnh phúc mau có cháu cho ông bà vui cửa vui nhà nha. Tỉ tỉ</p>
-                <script type="text/javascript">
-                  dataWishes.push({
-                    name: `Nhung hanaro hcm`,
-                    content: `Chúc 2 vợ chồng e trăm năm hạnh phúc mau có cháu cho ông bà vui cửa vui nhà nha. Tỉ tỉ`
-                  });
-                </script>
-              </div>
-              <div class="wish-box-item bg">
-                <strong>Cristian Win Vu</strong>
-                <p>Chúc chú Trưởng 99 năm hạnh phúc nha, from Win with love</p>
-                <script type="text/javascript">
-                  dataWishes.push({
-                    name: `Cristian Win Vu`,
-                    content: `Chúc chú Trưởng 99 năm hạnh phúc nha, from Win with love`
-                  });
-                </script>
-              </div>
+              <script type="text/javascript">
+                dataWishes.push({
+                  name: `Nhung hanaro hcm`,
+                  content: `Chúc 2 vợ chồng e trăm năm hạnh phúc mau có cháu cho ông bà vui cửa vui nhà nha. Tỉ tỉ`
+                });
+              </script>
+              <script type="text/javascript">
+                dataWishes.push({
+                  name: `Cristian Win Vu`,
+                  content: `Chúc chú Trưởng 99 năm hạnh phúc nha, from Win with love`
+                });
+              </script>
             </div>
           </div>
         </div>
@@ -1305,7 +1262,7 @@
       });
       return parsed;
     }
-    let biicore = parseJsonRecursively('{"template_id":"6174ef83a62963738e0a367c","templatePremium":false,"themeRoot":"https:\/\/uantran2896.github.io/wedding\/templates\/template15","webroot":"https:\/\/uantran2896.github.io/wedding","coreSite":"https:\/\/biihappy.com","webToken":"67f3a1ac5ae386fafc027976","isPremium":true,"bgMusic":"https:\/\/cdn.biihappy.com\/ziiweb\/website\/67f3a1ac5ae386fafc027976\/67f3c0a8c027b84d0f0918c0.mp3","alert":"[]","effect":"{\\\"type\\\":\\\"custom\\\",\\\"setting\\\":{\\\"icon\\\":\\\"https:\\\\\/\\\\\/cdn.biihappy.com\\\\\/ziiweb\\\\\/wedding-snows\\\\\/4.png\\\",\\\"number\\\":\\\"35\\\",\\\"speed\\\":\\\"3\\\",\\\"minSize\\\":\\\"15\\\",\\\"maxSize\\\":\\\"32\\\"}}","logo":"https:\/\/iwedding.info\/common\/imgs\/bii.png?v=20210131","url_landing_page":"https:\/\/biihappy.com\/iwedding","isAutoPlay":true,"footer_title":"iWedding | N\u1ec1n t\u1ea3ng t\u1ea1o website \u0111\u00e1m c\u01b0\u1edbi mi\u1ec5n ph\u00ed t\u1eeb Biihappy","footer_title_mobile":"T\u1ea1o website \u0111\u00e1m c\u01b0\u1edbi mi\u1ec5n ph\u00ed"}');
+    let biicore = parseJsonRecursively('{"template_id":"6174ef83a62963738e0a367c","templatePremium":false,"themeRoot":"https:\/\/uantran2896.github.io/wedding\/templates\/template15","webroot":"https:\/\/uantran2896.github.io/wedding","coreSite":"https:\/\/biihappy.com","webToken":"67f3a1ac5ae386fafc027976","isPremium":true,"bgMusic":"https:\/\/cdn.biihappy.com\/ziiweb\/wedding-musics\/MarryYou-BrunoMars-6450059.mp3","alert":"[]","effect":"{\\\"type\\\":\\\"custom\\\",\\\"setting\\\":{\\\"icon\\\":\\\"https:\\\\\/\\\\\/cdn.biihappy.com\\\\\/ziiweb\\\\\/wedding-snows\\\\\/4.png\\\",\\\"number\\\":\\\"35\\\",\\\"speed\\\":\\\"3\\\",\\\"minSize\\\":\\\"15\\\",\\\"maxSize\\\":\\\"32\\\"}}","logo":"https:\/\/iwedding.info\/common\/imgs\/bii.png?v=20210131","url_landing_page":"https:\/\/biihappy.com\/iwedding","isAutoPlay":true,"footer_title":"iWedding | N\u1ec1n t\u1ea3ng t\u1ea1o website \u0111\u00e1m c\u01b0\u1edbi mi\u1ec5n ph\u00ed t\u1eeb Biihappy","footer_title_mobile":"T\u1ea1o website \u0111\u00e1m c\u01b0\u1edbi mi\u1ec5n ph\u00ed"}');
   </script>
   <script
     src="./luanhang/templates/template15/js/jquery-plugin-collection.js?v=202506022"></script>
