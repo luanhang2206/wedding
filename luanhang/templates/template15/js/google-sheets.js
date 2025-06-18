@@ -2,7 +2,7 @@
 const SPREADSHEET_ID = '18_R5jP6jDZk8-KtysFZ5O_yH_L6zj00fqonrNdipMB0'; // Replace with your spreadsheet ID
 const SHEET_NAME = 'Wishes'; // Name of the sheet tab
 const API_KEY = 'AIzaSyDjXiMZ-DXe6RNbxFblKY2TzoS2F3fuuMs'; // Replace with your API key
-const APP_URL = 'https://script.google.com/macros/s/AKfycbx8SHR9Ei2-1kg_GT9NaJkKGoQwzSESjJ0eWArPWfe-lxf8tAc65hPHmQO0IHQz8CBc/exec'
+const APP_URL = 'https://script.google.com/macros/s/AKfycbxCTzB3cFYkL2_Yy3WAjc6SPoZf91DTW2-LgO6a3mGRFdWX_kO8vvtrs_1Yn6OBRGyt/exec'
 
 // Function to load wishes from Google Sheets
 async function loadWishesFromSheet() {
@@ -29,9 +29,10 @@ async function loadWishesFromSheet() {
 async function saveWishToSheet(name, content) {
     try {
         const response = await fetch(APP_URL, {
+            // mode: 'no-cors',
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'text/plain;charset=utf-8'
             },
             body: JSON.stringify({ name, content }),
         });
@@ -39,15 +40,26 @@ async function saveWishToSheet(name, content) {
         const text = await response.text();
 
         if (response.ok) {
-            console.log("✔ Wish saved:", text);
-            alert("Lưu lời chúc thành công!");
+            addWishToDisplay(name, content);
+
+            $( "#success").html('Cám ơn bạn đã gửi lời chúc đến chúng mình').slideDown( "slow" );
+            setTimeout(function() {
+                $( "#success").slideUp( "slow" );
+            }, 5000);
+            return true;
         } else {
-            console.error("❌ Server error:", text);
-            alert("Gửi lời chúc thất bại!");
+            $( "#success").html('Gửi lời chúc thất bại').slideDown( "slow" );
+            error(function() {
+                $( "#error").slideUp( "slow" );
+            }, 5000);
+            return false;
         }
     } catch (error) {
-        console.error("❌ Network error:", error);
-        alert("Lỗi mạng khi gửi lời chúc!");
+        setTimeout(function() {
+            $( "#error").slideUp( "slow" );
+        }, 5000);
+        return false;
+
     }
 }
 
@@ -99,18 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = wishForm.querySelector('input[name="name"]').value;
             const content = wishForm.querySelector('textarea[name="content"]').value;
 
-            if (!name || !content) {
-                alert('Vui lòng điền đầy đủ thông tin!');
-                return;
-            }
-
             const success = await saveWishToSheet(name, content);
 
             if (success) {
                 wishForm.reset();
-                alert('Cảm ơn bạn đã gửi lời chúc!');
-            } else {
-                alert('Có lỗi xảy ra, vui lòng thử lại sau!');
             }
         });
     }
