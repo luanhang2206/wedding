@@ -28,6 +28,8 @@ async function loadWishesFromSheet() {
 // Function to save a new wish to Google Sheets
 async function saveWishToSheet(name, content) {
     try {
+        $("#loader").css("display", "inline-block");
+
         const response = await fetch(APP_URL, {
             // mode: 'no-cors',
             method: 'POST',
@@ -42,13 +44,14 @@ async function saveWishToSheet(name, content) {
         if (response.ok) {
             addWishToDisplay(name, content);
 
+            $( "#loader").hide();
             $( "#success").html('Cám ơn bạn đã gửi lời chúc đến chúng mình').slideDown( "slow" );
             setTimeout(function() {
                 $( "#success").slideUp( "slow" );
             }, 5000);
             return true;
         } else {
-            $( "#success").html('Gửi lời chúc thất bại').slideDown( "slow" );
+            $( "#error").html('Gửi lời chúc thất bại').slideDown( "slow" );
             error(function() {
                 $( "#error").slideUp( "slow" );
             }, 5000);
@@ -108,14 +111,22 @@ document.addEventListener('DOMContentLoaded', () => {
         wishForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
+            const submitBtn = wishForm.querySelector('button[type="submit"]');
+            if (submitBtn) submitBtn.disabled = true;
+
             const name = wishForm.querySelector('input[name="name"]').value;
             const content = wishForm.querySelector('textarea[name="content"]').value;
 
-            const success = await saveWishToSheet(name, content);
+            console.log('object', name, 'content', content);
+            let success;
+            if (name.trim() !== "" && content.trim() !== "") {
+                success = await saveWishToSheet(name, content);
+            }
 
             if (success) {
                 wishForm.reset();
             }
+            if (submitBtn) submitBtn.disabled = false;
         });
     }
 });
